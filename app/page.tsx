@@ -11,6 +11,7 @@ import type { Song } from "@/lib/playlist";
 import playlistData from "@/lib/playlistData.json";
 import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -42,27 +43,28 @@ export default function Home() {
             <Clock />
           </div>
 
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-2 sm:gap-3 items-center">
             <Link
               href={"https://music.youtube.com/playlist?list=PLtMW1pmNGp6x9e8QfkqTheNnoWeOJmhxi"}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex items-center gap-2 rounded-full border border-white/20 
-            bg-black/30 px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white">
-              <p>YT Link
-              </p>
-              <span><MoveUpRight size={16} /></span>
+              className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white"
+            >
+              <Image src="/ytmusic.png" width={20} height={20} alt="YT Music" />
+              <p className="hidden sm:block">YT Music</p>
+              <span className="hidden sm:block"><MoveUpRight size={16} /></span>
             </Link>
             <Link
               href={"https://music.youtube.com/playlist?list=PLtMW1pmNGp6x9e8QfkqTheNnoWeOJmhxi"}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white">
-              <p>Spotify Link</p>
-              <span><MoveUpRight size={16} /></span>
+              className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white"
+            >
+              <Image src="/spotify.png" width={20} height={20} alt="YT Music" />
+              <p className="hidden sm:block">Spotify</p>
+              <span className="hidden sm:block"><MoveUpRight size={16} /></span>
             </Link>
-            <div className="relative flex items-center gap-3 rounded-full border border-white/20 bg-black/30 px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white">
-
+            <div className="relative flex items-center gap-2 sm:gap-3 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white">
               <OnlineCount />
             </div>
 
@@ -76,7 +78,7 @@ export default function Home() {
         </section>
 
         {/* Music Player */}
-        <footer className="flex justify-center items-center gap-2">
+        <footer className="flex flex-wrap sm:flex-nowrap justify-center items-center gap-2 sm:gap-4 w-full pb-4 sm:pb-0">
           <PlaylistButton
             songs={songs}
             currentIndex={currentIndex}
@@ -84,11 +86,13 @@ export default function Home() {
               setCurrentIndex(index);
             }}
           />
-          <MusicPlayer
-            currentIndex={currentIndex}
-            onIndexChange={setCurrentIndex}
-            onPlayStateChange={setIsPlaying}
-          />
+          <div className="w-full sm:w-auto flex-1 flex justify-center order-first sm:order-none">
+            <MusicPlayer
+              currentIndex={currentIndex}
+              onIndexChange={setCurrentIndex}
+              onPlayStateChange={setIsPlaying}
+            />
+          </div>
           <MusicWaves isPlaying={isPlaying} />
         </footer>
 
