@@ -8,8 +8,17 @@ const inter = Inter({
 
 export default function Home() {
   return (
-    <div className={`${inter.variable} min-h-screen font-sans bg-zinc-50 dark:bg-black p-4 m-4`}>
-      <main className="relative mx-auto flex min-h-screen w-full max-w-5xl flex-col px-6 py-8 sm:px-10 sm:py-10">
+    <div
+      className={`${inter.variable} h-screen font-sans overflow-hidden`}
+      style={{
+        backgroundImage: "url('/bg-1.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      <main className="relative mx-auto flex h-full w-full max-w-5xl flex-col px-6 py-8 sm:px-10 sm:py-10">
 
         {/* Header */}
         <header className="flex w-full items-center justify-between p-4 m-4">
