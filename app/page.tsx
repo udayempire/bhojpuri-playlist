@@ -23,12 +23,12 @@ export default function Home() {
       <main className="relative mx-auto flex h-full w-full max-w-5xl flex-col px-6 py-8 sm:px-10 sm:py-10">
 
         {/* Header */}
-        <header className="flex w-full items-center justify-between p-4 m-4">
-          <div className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        <header className="fixed top-4 left-4 right-4 sm:top-6 sm:left-6 sm:right-6 flex items-center justify-between z-50">
+          <div className="relative flex items-center gap-3 rounded-full border border-white/20 bg-black/30 px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-base text-sm font-semibold tracking-wide text-white">
             <Clock />
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+          <div className="relative flex items-center gap-3 rounded-full border border-white/20 bg-black/30 px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white">
             <OnlineCount/>
           </div>
         </header>
