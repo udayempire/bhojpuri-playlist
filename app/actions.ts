@@ -31,7 +31,7 @@ export async function getPlaylistSongs(): Promise<Song[]> {
 
     // 1. Fetch playlist items (gives us video IDs, titles, artists)
     const playlistUrl = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet,contentDetails&maxResults=50&playlistId=${PLAYLIST_ID}&key=${API_KEY}`;
-    const playlistRes = await fetch(playlistUrl, { next: { revalidate: 3600 } });
+    const playlistRes = await fetch(playlistUrl, { next: { revalidate: 300 } });
     
     if (!playlistRes.ok) {
       throw new Error(`Failed to fetch YouTube API: ${playlistRes.status}`);
@@ -63,7 +63,7 @@ export async function getPlaylistSongs(): Promise<Song[]> {
 
     // 2. Fetch video details to get the exact durations
     const videosUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoIds.join(',')}&key=${API_KEY}`;
-    const videosRes = await fetch(videosUrl, { next: { revalidate: 3600 } });
+    const videosRes = await fetch(videosUrl, { next: { revalidate: 300 } });
     
     if (videosRes.ok) {
       const videosData = await videosRes.json();
