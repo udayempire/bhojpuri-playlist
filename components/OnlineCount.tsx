@@ -79,7 +79,7 @@ export default function OnlineCount() {
       <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
 
       <span className="text-white">
-        {count} Online Now
+        {count} Online
       </span>
     </div>
   );
