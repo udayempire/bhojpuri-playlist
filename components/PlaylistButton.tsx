@@ -209,6 +209,11 @@ export default function PlaylistButton({
                     {song.artist}
                   </p>
                 </div>
+
+                {/* Duration */}
+                <span className="shrink-0 text-[11px] text-white/30">
+                  {song.duration}
+                </span>
               </button>
             );
           })}
