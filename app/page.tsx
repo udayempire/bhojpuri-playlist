@@ -1,3 +1,4 @@
+import MusicPlayer from "@/components/audioPlayer";
 import { Clock } from "@/components/clock";
 import { Inter } from "next/font/google";
 
@@ -38,8 +39,8 @@ export default function Home() {
         </section>
 
         {/* Music Player */}
-        <footer>
-          Music Player UI
+        <footer className="flex justify-center">
+          <MusicPlayer />
         </footer>
 
       </main>
