@@ -1,6 +1,7 @@
 import MusicPlayer from "@/components/audioPlayer";
 import { Clock } from "@/components/clock";
 import OnlineCount from "@/components/OnlineCount";
+import PlaylistButton from "@/components/PlaylistButton";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -39,7 +40,8 @@ export default function Home() {
         </section>
 
         {/* Music Player */}
-        <footer className="flex justify-center">
+        <footer className="flex justify-center items-center gap-2">
+  <PlaylistButton count={12} />
           <MusicPlayer />
         </footer>
 
