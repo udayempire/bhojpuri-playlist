@@ -298,8 +298,11 @@ export default function MusicPlayer({
                             flex h-full w-full items-center justify-center
                             rounded-full
                             text-white/70
-                            transition-colors duration-200
+                            transition-all duration-200
                             hover:text-white
+                            hover:scale-110
+                            active:scale-95
+                            cursor-pointer
                             disabled:cursor-not-allowed
                             disabled:opacity-30"
                             aria-label="Previous"
@@ -316,10 +319,11 @@ export default function MusicPlayer({
                             className="
                             rounded-full
                             flex h-full w-full items-center justify-center
-                            transition
+                            transition-all
                             text-white
                             hover:scale-105
                             active:scale-95
+                            cursor-pointer
                             disabled:cursor-not-allowed
                             disabled:opacity-50
                         "
@@ -350,9 +354,12 @@ export default function MusicPlayer({
                             className="
                             flex h-full w-full items-center justify-center
                             rounded-full
-                          text-white/70
-                            transition-colors duration-200
-                          hover:text-white
+                            text-white/70
+                            transition-all duration-200
+                            hover:text-white
+                            hover:scale-110
+                            active:scale-95
+                            cursor-pointer
                             disabled:cursor-not-allowed
                             disabled:opacity-30"
                             aria-label="Next"

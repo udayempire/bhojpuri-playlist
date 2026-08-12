@@ -118,9 +118,11 @@ export default function PlaylistButton({
               items-center justify-center
               rounded-full
               text-white/50
-              transition-colors
+              transition-all
+              hover:scale-110
               hover:bg-white/10
               hover:text-white
+              cursor-pointer
             "
             aria-label="Close playlist"
           >
@@ -148,12 +150,13 @@ export default function PlaylistButton({
                   rounded-xl
                   px-2 py-2
                   text-left
-                  transition-colors
+                  transition-all
+                  cursor-pointer
 
                   ${
                     isCurrent
                       ? "bg-white/15"
-                      : "hover:bg-white/10"
+                      : "hover:bg-white/10 hover:scale-[1.02]"
                   }
                 `}
               >
@@ -206,11 +209,6 @@ export default function PlaylistButton({
                     {song.artist}
                   </p>
                 </div>
-
-                {/* Duration */}
-                <span className="shrink-0 text-[11px] text-white/30">
-                  {song.duration}
-                </span>
               </button>
             );
           })}
@@ -232,11 +230,12 @@ export default function PlaylistButton({
           text-white/75
           shadow-[0_10px_40px_rgba(0,0,0,0.25)]
           backdrop-blur-xl
-          transition
+          transition-all
           hover:scale-105
           hover:bg-black/40
           hover:text-white
           active:scale-95
+          cursor-pointer
         "
       >
         <ListMusic

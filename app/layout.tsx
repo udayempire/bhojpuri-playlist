@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bhojpuri Power",
+  title: "Bhojpuri Stars",
   description: "",
 };
 

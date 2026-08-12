@@ -8,10 +8,11 @@ import PlaylistButton from "@/components/PlaylistButton";
 import { Inter } from "next/font/google";
 import { useState } from "react";
 import type { Song } from "@/lib/playlist";
-import playlistData from "@/lib/playlistData.json";
 import { MoveUpRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { getPlaylistSongs } from "@/app/actions";
+import { useEffect } from "react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,19 +22,15 @@ const inter = Inter({
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [songs, setSongs] = useState<Song[]>([]);
 
-  const songs: Song[] = playlistData;
+  useEffect(() => {
+    getPlaylistSongs().then(setSongs);
+  }, []);
 
   return (
     <div
-      className={`${inter.variable} h-screen font-sans overflow-hidden`}
-      style={{
-        backgroundImage: "url('/bg-1.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
+      className={`${inter.variable} h-screen font-sans overflow-hidden bg-[url('/bg-mob.png')] sm:bg-[url('/bg-2.png')] bg-cover bg-center bg-no-repeat bg-fixed`}
     >
       <main className="relative mx-auto flex h-full w-full max-w-5xl flex-col px-6 py-8 sm:px-10 sm:py-10">
 
@@ -48,7 +45,7 @@ export default function Home() {
               href={"https://music.youtube.com/playlist?list=PLtMW1pmNGp6x9e8QfkqTheNnoWeOJmhxi"}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white"
+              className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white transition-all hover:scale-105 hover:bg-black/40 cursor-pointer"
             >
               <Image src="/ytmusic.png" width={20} height={20} alt="YT Music" />
               <p className="hidden sm:block">YT Music</p>
@@ -58,7 +55,7 @@ export default function Home() {
               href={"https://open.spotify.com/playlist/1GT0ZbeSxcAVOFkkehNFZk"}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white"
+              className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white transition-all hover:scale-105 hover:bg-black/40 cursor-pointer"
             >
               <Image src="/spotify.png" width={20} height={20} alt="YT Music" />
               <p className="hidden sm:block">Spotify</p>
