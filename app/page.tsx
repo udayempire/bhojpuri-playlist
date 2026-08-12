@@ -38,12 +38,12 @@ export default function Home() {
       <main className="relative mx-auto flex h-full w-full max-w-5xl flex-col px-6 py-8 sm:px-10 sm:py-10">
 
         {/* Header */}
-        <header className="fixed top-4 left-4 right-4 sm:top-6 sm:left-6 sm:right-6 flex items-center justify-between z-50">
-          <div className="relative flex items-center gap-3 rounded-full border border-white/20 bg-black/30 px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-base text-sm font-semibold tracking-wide text-white">
+        <header className="fixed top-4 left-4 right-4 sm:top-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row items-center justify-between z-50 gap-3 sm:gap-0 pointer-events-none">
+          <div className="pointer-events-auto relative flex items-center gap-3 rounded-full border border-white/20 bg-black/30 px-4 py-2 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-base text-sm font-semibold tracking-wide text-white">
             <Clock />
           </div>
 
-          <div className="flex gap-2 sm:gap-3 items-center">
+          <div className="flex gap-2 sm:gap-3 items-center pointer-events-auto">
             <Link
               href={"https://music.youtube.com/playlist?list=PLtMW1pmNGp6x9e8QfkqTheNnoWeOJmhxi"}
               target="_blank"
@@ -55,7 +55,7 @@ export default function Home() {
               <span className="hidden sm:block"><MoveUpRight size={16} /></span>
             </Link>
             <Link
-              href={"https://music.youtube.com/playlist?list=PLtMW1pmNGp6x9e8QfkqTheNnoWeOJmhxi"}
+              href={"https://open.spotify.com/playlist/1GT0ZbeSxcAVOFkkehNFZk"}
               target="_blank"
               rel="noopener noreferrer"
               className="relative flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-2 sm:px-4 shadow-[0_10px_40px_rgba(0,0,0,0.25)] backdrop-blur-xl text-sm font-medium text-white"

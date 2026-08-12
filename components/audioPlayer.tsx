@@ -45,11 +45,11 @@ interface SongInfo {
     videoId: string;
 }
 
-export default function MusicPlayer({ 
+export default function MusicPlayer({
     onPlayStateChange,
     currentIndex,
     onIndexChange
-}: { 
+}: {
     onPlayStateChange?: (playing: boolean) => void,
     currentIndex?: number,
     onIndexChange?: (index: number) => void
@@ -265,7 +265,7 @@ export default function MusicPlayer({
                         <div className="truncate text-sm font-semibold text-white">
                             {song.title}
                         </div>
-                        <div className="text-xs text-white/65">
+                        <div className="hidden sm:block text-xs text-white/65">
                             {isReady ? song.artist : "Loading player…"}
                         </div>
                     </div>
@@ -295,14 +295,13 @@ export default function MusicPlayer({
                             onClick={handlePrev}
                             disabled={!isReady}
                             className="
-                flex h-full w-full items-center justify-center
-                rounded-full
-                text-white/70
-                transition-colors duration-200
-                hover:text-white
-                disabled:cursor-not-allowed
-                disabled:opacity-30
-            "
+                            flex h-full w-full items-center justify-center
+                            rounded-full
+                            text-white/70
+                            transition-colors duration-200
+                            hover:text-white
+                            disabled:cursor-not-allowed
+                            disabled:opacity-30"
                             aria-label="Previous"
                         >
                             <SkipBack size={16} fill="currentColor" />

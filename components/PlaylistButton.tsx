@@ -69,13 +69,17 @@ export default function PlaylistButton({
          ========================= */}
       <div
         className={`
-          absolute
-          bottom-full
-          right-0
-          mb-3
-          z-50
-          w-80
-          origin-bottom-right
+          fixed sm:absolute
+          top-1/2 sm:top-auto
+          left-1/2 sm:left-auto
+          bottom-auto sm:bottom-full
+          right-auto sm:right-0
+          -translate-x-1/2 sm:translate-x-0
+          -translate-y-1/2 sm:translate-y-0
+          sm:mb-3
+          z-[100]
+          w-[90vw] sm:w-80
+          origin-center sm:origin-bottom-right
           overflow-hidden
           rounded-2xl
           border border-white/20
@@ -89,8 +93,8 @@ export default function PlaylistButton({
 
           ${
             isOpen
-              ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
-              : "pointer-events-none translate-y-3 scale-95 opacity-0"
+              ? "pointer-events-auto scale-100 opacity-100"
+              : "pointer-events-none scale-95 opacity-0"
           }
         `}
       >
