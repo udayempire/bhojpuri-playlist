@@ -1,8 +1,12 @@
+"use client";
+
 import MusicPlayer from "@/components/audioPlayer";
 import { Clock } from "@/components/clock";
+import MusicWaves from "@/components/MusicWaves";
 import OnlineCount from "@/components/OnlineCount";
 import PlaylistButton from "@/components/PlaylistButton";
 import { Inter } from "next/font/google";
+import { useState } from "react";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -10,6 +14,8 @@ const inter = Inter({
 });
 
 export default function Home() {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   return (
     <div
       className={`${inter.variable} h-screen font-sans overflow-hidden`}
@@ -41,8 +47,9 @@ export default function Home() {
 
         {/* Music Player */}
         <footer className="flex justify-center items-center gap-2">
-  <PlaylistButton count={12} />
-          <MusicPlayer />
+          <PlaylistButton count={12} />
+          <MusicPlayer onPlayStateChange={setIsPlaying} />
+          <MusicWaves isPlaying={isPlaying}/>
         </footer>
 
       </main>

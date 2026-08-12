@@ -43,7 +43,7 @@ interface SongInfo {
     videoId: string;
 }
 
-export default function MusicPlayer() {
+export default function MusicPlayer({ onPlayStateChange }: { onPlayStateChange?: (playing: boolean) => void } = {}) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -57,6 +57,10 @@ export default function MusicPlayer() {
     const playerRef = useRef<YTPlayer | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+    useEffect(() => {
+        onPlayStateChange?.(isPlaying);
+    }, [isPlaying, onPlayStateChange]);
 
     /*Pull live metadata from YT player */
     const syncSongInfo = () => {
@@ -235,11 +239,13 @@ export default function MusicPlayer() {
 
                 {/* Song info + progress */}
                 <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-semibold text-white">
-                        {song.title}
-                    </div>
-                    <div className="text-xs text-white/65">
-                        {isReady ? song.artist : "Loading player…"}
+                    <div className="flex items-center justify-between px-3">
+                        <div className="truncate text-sm font-semibold text-white">
+                            {song.title}
+                        </div>
+                        <div className="text-xs text-white/65">
+                            {isReady ? song.artist : "Loading player…"}
+                        </div>
                     </div>
 
                     <div className="mt-1.5 flex items-center gap-3">
@@ -259,39 +265,80 @@ export default function MusicPlayer() {
                 </div>
 
                 {/* Controls */}
-                <div className="flex shrink-0 items-center gap-5 pr-2">
-                    <button
-                        onClick={handlePrev}
-                        disabled={!isReady}
-                        className="text-white/70 transition hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
-                        aria-label="Previous"
-                    >
-                        <SkipBack size={16} fill="currentColor" />
-                    </button>
+                {/* Controls */}
+                <div className="flex shrink-0 items-center gap-3 pr-2">
+                    {/* Previous */}
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-colors duration-200 hover:bg-white/30">
+                        <button
+                            onClick={handlePrev}
+                            disabled={!isReady}
+                            className="
+                flex h-full w-full items-center justify-center
+                rounded-full
+                text-white/70
+                transition-colors duration-200
+                hover:text-white
+                disabled:cursor-not-allowed
+                disabled:opacity-30
+            "
+                            aria-label="Previous"
+                        >
+                            <SkipBack size={16} fill="currentColor" />
+                        </button>
+                    </div>
 
-                    <button
-                        onClick={handlePlayPause}
-                        disabled={!isReady}
-                        className="flex h-13 w-13 items-center justify-center rounded-full transition hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-                        aria-label={isPlaying ? "Pause" : "Play"}
-                    >
-                        {!isReady ? (
-                            <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                        ) : isPlaying ? (
-                            <Pause size={21} fill="currentColor" className="text-white" />
-                        ) : (
-                            <Play size={21} fill="currentColor" className="translate-x-px text-white" />
-                        )}
-                    </button>
+                    {/* Play / Pause */}
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors duration-200 hover:bg-white/30">
+                        <button
+                            onClick={handlePlayPause}
+                            disabled={!isReady}
+                            className="
+                            rounded-full
+                            flex h-full w-full items-center justify-center
+                            transition
+                            text-white
+                            hover:scale-105
+                            active:scale-95
+                            disabled:cursor-not-allowed
+                            disabled:opacity-50
+                        "
+                            aria-label={isPlaying ? "Pause" : "Play"}
+                        >
+                            {!isReady ? (
+                                <span className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                            ) : isPlaying ? (
+                                <Pause
+                                    size={19}
+                                    fill="currentColor"
+                                />
+                            ) : (
+                                <Play
+                                    size={19}
+                                    fill="currentColor"
+                                    className="translate-x-px"
+                                />
+                            )}
+                        </button>
+                    </div>
 
-                    <button
-                        onClick={handleNext}
-                        disabled={!isReady}
-                        className="text-white/70 transition hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
-                        aria-label="Next"
-                    >
-                        <SkipForward size={16} fill="currentColor" />
-                    </button>
+                    {/* Next */}
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-colors duration-200 hover:bg-white/30">
+                        <button
+                            onClick={handleNext}
+                            disabled={!isReady}
+                            className="
+                            flex h-full w-full items-center justify-center
+                            rounded-full
+                          text-white/70
+                            transition-colors duration-200
+                          hover:text-white
+                            disabled:cursor-not-allowed
+                            disabled:opacity-30"
+                            aria-label="Next"
+                        >
+                            <SkipForward size={16} fill="currentColor" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
