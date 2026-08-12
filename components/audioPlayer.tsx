@@ -34,6 +34,8 @@ declare global {
         getDuration(): number;
         getVideoData(): { video_id: string; title: string; author: string };
         destroy(): void;
+        playVideoAt(index: number): void;
+        getPlaylistIndex(): number;
     }
 }
 
@@ -43,7 +45,15 @@ interface SongInfo {
     videoId: string;
 }
 
-export default function MusicPlayer({ onPlayStateChange }: { onPlayStateChange?: (playing: boolean) => void } = {}) {
+export default function MusicPlayer({ 
+    onPlayStateChange,
+    currentIndex,
+    onIndexChange
+}: { 
+    onPlayStateChange?: (playing: boolean) => void,
+    currentIndex?: number,
+    onIndexChange?: (index: number) => void
+} = {}) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -61,6 +71,15 @@ export default function MusicPlayer({ onPlayStateChange }: { onPlayStateChange?:
     useEffect(() => {
         onPlayStateChange?.(isPlaying);
     }, [isPlaying, onPlayStateChange]);
+
+    useEffect(() => {
+        if (isReady && playerRef.current && currentIndex !== undefined) {
+            const currentYTIndex = playerRef.current.getPlaylistIndex();
+            if (currentYTIndex !== currentIndex) {
+                playerRef.current.playVideoAt(currentIndex);
+            }
+        }
+    }, [currentIndex, isReady]);
 
     /*Pull live metadata from YT player */
     const syncSongInfo = () => {
@@ -108,6 +127,9 @@ export default function MusicPlayer({ onPlayStateChange }: { onPlayStateChange?:
                             setIsPlaying(true);
                             startTick();
                             syncSongInfo(); // title/artist from YT directly
+                            if (playerRef.current) {
+                                onIndexChange?.(playerRef.current.getPlaylistIndex());
+                            }
                         } else if (e.data === window.YT.PlayerState.PAUSED) {
                             setIsPlaying(false);
                             stopTick();

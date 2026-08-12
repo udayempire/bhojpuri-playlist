@@ -7,6 +7,8 @@ import OnlineCount from "@/components/OnlineCount";
 import PlaylistButton from "@/components/PlaylistButton";
 import { Inter } from "next/font/google";
 import { useState } from "react";
+import type { Song } from "@/lib/playlist";
+import playlistData from "@/lib/playlistData.json";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,6 +17,9 @@ const inter = Inter({
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const songs: Song[] = playlistData;
 
   return (
     <div
@@ -47,8 +52,18 @@ export default function Home() {
 
         {/* Music Player */}
         <footer className="flex justify-center items-center gap-2">
-          <PlaylistButton count={12} />
-          <MusicPlayer onPlayStateChange={setIsPlaying} />
+<PlaylistButton
+  songs={songs}
+  currentIndex={currentIndex}
+  onSelect={(index) => {
+    setCurrentIndex(index);
+  }}
+/>
+          <MusicPlayer 
+            currentIndex={currentIndex} 
+            onIndexChange={setCurrentIndex}
+            onPlayStateChange={setIsPlaying} 
+          />
           <MusicWaves isPlaying={isPlaying}/>
         </footer>
 
