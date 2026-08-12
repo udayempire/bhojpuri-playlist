@@ -1,76 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import Pusher from "pusher-js";
 
 export default function OnlineCount() {
   const [count, setCount] = useState(0);
-  const socketRef = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    const protocol =
-      window.location.protocol === "https:"
-        ? "wss:"
-        : "ws:";
+    // Enable pusher logging - don't include this in production
+    // Pusher.logToConsole = true;
 
-    const url =
-      `${protocol}//${window.location.host}/ws/presence`;
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+      authEndpoint: "/api/pusher/auth",
+    });
 
-    console.log("Connecting:", url);
+    const channel = pusher.subscribe("presence-bhojpuri");
 
-    const socket = new WebSocket(url);
+    channel.bind("pusher:subscription_succeeded", (members: any) => {
+      setCount(members.count);
+    });
 
-    socketRef.current = socket;
+    channel.bind("pusher:member_added", () => {
+      setCount((channel as any).members.count);
+    });
 
-    socket.onopen = () => {
-      console.log("✅ Presence connected");
-    };
-
-    socket.onmessage = (event) => {
-      console.log("📨 Server:", event.data);
-
-      try {
-        const data = JSON.parse(event.data);
-
-        if (data.type === "online_count") {
-          setCount(data.count);
-        }
-      } catch (error) {
-        console.error(
-          "Invalid server message:",
-          event.data,
-        );
-      }
-    };
-
-    socket.onerror = (event) => {
-      console.error(
-        "❌ WebSocket error",
-        event,
-      );
-    };
-
-    socket.onclose = (event) => {
-      console.log(
-        "🔌 WebSocket closed",
-        {
-          code: event.code,
-          reason: event.reason,
-          wasClean: event.wasClean,
-        },
-      );
-    };
+    channel.bind("pusher:member_removed", () => {
+      setCount((channel as any).members.count);
+    });
 
     return () => {
-      console.log("Cleaning up WebSocket");
-
-      if (
-        socket.readyState === WebSocket.OPEN ||
-        socket.readyState === WebSocket.CONNECTING
-      ) {
-        socket.close();
-      }
-
-      socketRef.current = null;
+      pusher.unsubscribe("presence-bhojpuri");
+      pusher.disconnect();
     };
   }, []);
 
